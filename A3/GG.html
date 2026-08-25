@@ -1,75 +1,63 @@
-<!doctype html>
-<html lang="es">
- <head>
-   <meta charset="utf-8">
-   <title>Golden Globe Winners 2020</title>
-   <style>
-     body {
-       background-color: #f4f6f9;
-       text-align: center;
-       font-family: Arial, sans-serif;
-       padding: 40px 20px;
-     }
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-color: rgb(249, 247, 246);
+  text-align: center;
+}
 
-     h1 {
-       color: #1a2a3a;
-       font-size: 32px;
-       margin-bottom: 30px;
-       border-bottom: 3px solid #d4af37;
-       display: inline-block;
-       padding-bottom: 10px;
-     }
+h1 {
+  color: rgb(12, 12, 12);
+  text-align: center;
+}
 
-     .box {
-       background-color: #ffffff;
-       max-width: 550px;
-       margin: 0 auto 20px auto;
-       padding: 15px 20px;
-       border-radius: 8px;
-       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-       border-left: 5px solid #800000;
-     }
+p {
+  font-family: helvetica, sans-serif;
+  font-size: 20px;
+}
 
-     h2 {
-       color: #800000;
-       font-variant: small-caps;
-       font-size: 18px;
-       margin-top: 5px;
-       margin-bottom: 8px;
-     }
+/* Contenedor vertical */
+.act-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin: 15px 0;
+}
 
-     p {
-       color: #2c3e50;
-       font-size: 26px;
-       font-weight: bold;
-       margin: 0;
-     }
-   </style>
+/* Estilo para los botones */
+.act-link {
+  display: inline-block;
+  border: 2px solid rgb(12, 12, 12);
+  padding: 12px 28px;
+  font-family: helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  color: rgb(12, 12, 12);
+  text-decoration: none;
+  letter-spacing: 2px;
+  transition: all 0.2s ease;
+  width: 200px; /* Tamaño uniforme para ambos botones */
+}
 
- </head>
- <body>
+/* Efecto al pasar el cursor */
+.act-link:hover {
+  background-color: rgb(12, 12, 12);
+  color: rgb(249, 247, 246);
+}
+</style>
+</head>
+<body>
 
-   <h1>Golden Globe Winners 2020</h1>
+<h1> MENU LOFTY Studio™</h1>
+<p>LOFTY Archive</p>
 
-   <div class="box">
-     <h2>Best Motion Picture - Drama</h2>
-     <p id="bestdrama">1917</p>
-   </div>
+<!-- Botones ordenados uno debajo del otro -->
+<div class="act-container">
+  <a href="A2/act1.html" class="act-link">ACT 1</a>
+  <a href="file:///C:/Users/micke/OMAR/ANIMACIO%20DINAMICA/GG/GG.html" class="act-link">GOLDEN GLOBE</a>
+</div>
 
-   <div class="box">
-     <h2>Best Motion Picture - Musical or Comedy</h2>
-     <p id="bestcomedy">Once Upon a Time in Hollywood</p>
-   </div>
-
-   <div class="box">
-     <h2>Best performance by an actress in a motion picture - drama</h2>
-     <p id="bestactress">Renée Zellweger</p>
-   </div>
-
-   <div class="box">
-     <h2>Best performance by an actor in a motion picture - drama</h2>
-     <p id="bestactor">Joaquin Phoenix</p>
-   </div>
-
- </body>
+</body>
 </html>
