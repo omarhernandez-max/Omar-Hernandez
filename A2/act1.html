@@ -1,62 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<style>
-body {
-  background-color: rgb(249, 247, 246);
-  text-align: center;
-  font-family: helvetica, sans-serif;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOFTY Studio™</title>
+  <style>
+    body {
+      background-color: rgb(249, 247, 246);
+      text-align: center;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      color: rgb(12, 12, 12);
+    }
 
-h1 {
-  color: rgb(12, 12, 12);
-  text-align: center;
-}
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
 
-p {
-  font-size: 20px;
-}
+    h1 {
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
 
-/* Estilo para la lista */
-ol {
-  list-style-type: none;
-  padding: 0;
-}
+    /* Subtítulo H2 añadido */
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(12, 12, 12, 0.6);
+      margin-top: 0;
+      margin-bottom: 25px;
+    }
 
-/* Botón estilizado para volver al menú */
-.btn-back {
-  display: inline-block;
-  border: 2px solid rgb(12, 12, 12);
-  padding: 10px 24px;
-  margin-top: 20px;
-  font-weight: bold;
-  font-size: 16px;
-  color: rgb(12, 12, 12);
-  text-decoration: none;
-  letter-spacing: 1px;
-  transition: all 0.2s ease;
-}
+    .hero-img {
+      max-width: 100%;
+      height: auto;
+      width: 420px;
+      transition: transform 0.3s ease;
+    }
 
-.btn-back:hover {
-  background-color: rgb(12, 12, 12);
-  color: rgb(249, 247, 246);
-}
-</style>
+    .hero-img:hover {
+      transform: scale(1.02);
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 25px 0;
+      font-weight: 300;
+    }
+
+    ol {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    ol li a {
+      color: rgb(12, 12, 12);
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px solid rgb(12, 12, 12);
+      padding-bottom: 2px;
+      transition: opacity 0.2s ease;
+    }
+
+    ol li a:hover {
+      opacity: 0.6;
+    }
+
+    .btn-back {
+      display: inline-block;
+      border: 2px solid rgb(12, 12, 12);
+      padding: 12px 28px;
+      margin-top: 25px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: rgb(12, 12, 12);
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.25s ease;
+    }
+
+    .btn-back:hover {
+      background-color: rgb(12, 12, 12);
+      color: rgb(249, 247, 246);
+    }
+  </style>
 </head>
 <body>
 
-<h1>LOFTY Studio™</h1>
-<img src="Paz-removebg-preview.png" alt="Paz-removebg-preview" width="500" height="500">
-<p>Lofty Studio nace de hacer las cosas bien, sin prisa y con criterio.</p>
+  <div class="container">
+    <h1>LOFTY Studio™</h1>
+    <h2>Diseño & Criterio</h2>
 
-<ol>
-  <li><a href="https://omarhernandez-max.github.io/Omar-Hernandez/">Lofty Studio</a></li>
-</ol>
+    <img src="Paz-removebg-preview.png" alt="Paz - Lofty Studio" class="hero-img">
 
-<!-- Botón para regresar con la ruta exacta de tu menú local -->
-<div>
-  <a href="https://omarhernandez-max.github.io/Omar-Hernandez/" class="btn-back">← Volver al Menú</a>
-</div>
+    <p>Lofty Studio nace de hacer las cosas bien, sin prisa y con criterio.</p>
+
+    <ol>
+      <li><a href="https://omarhernandez-max.github.io/Omar-Hernandez/">Ver Portafolio</a></li>
+    </ol>
+
+    <div>
+      <a href="https://omarhernandez-max.github.io/Omar-Hernandez/" class="btn-back">← Volver al Menú</a>
+    </div>
+  </div>
 
 </body>
 </html>
