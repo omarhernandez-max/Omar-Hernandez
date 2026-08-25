@@ -17,7 +17,16 @@ p {
   font-size: 20px;
 }
 
-/* Estilo para convertir el recuadro ACT 1 en el enlace principal */
+/* Contenedor para alinear los botones en línea */
+.act-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 15px 0;
+}
+
+/* Estilo para convertir los recuadros en enlaces principales */
 .act-link {
   display: inline-block;
   border: 2px solid rgb(12, 12, 12);
@@ -28,11 +37,10 @@ p {
   color: rgb(12, 12, 12);
   text-decoration: none;
   letter-spacing: 2px;
-  margin: 15px 0;
   transition: all 0.2s ease;
 }
 
-/* Efecto al pasar el cursor sobre el recuadro ACT 1 */
+/* Efecto al pasar el cursor sobre los recuadros */
 .act-link:hover {
   background-color: rgb(12, 12, 12);
   color: rgb(249, 247, 246);
@@ -44,8 +52,11 @@ p {
 <h1> MENU LOFTY Studio™</h1>
 <p>LOFTY Archive</p>
 
-<!-- El recuadro ACT 1 ahora es el botón con el enlace -->
-<a href="A2/act1.html" class="act-link">ACT 1</a>
+<!-- Recuadros de selección -->
+<div class="act-container">
+  <a href="A2/act1.html" class="act-link">ACT 1</a>
+  <a href="file:///C:/Users/micke/OMAR/ANIMACIO%20DINAMICA/GG/GG.html" class="act-link">GOLDEN GLOBE</a>
+</div>
 
 </body>
 </html>
