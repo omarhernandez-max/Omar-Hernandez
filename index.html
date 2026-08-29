@@ -1,62 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOFTY Studio™</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+
 <style>
-body {
-  background-color: rgb(249, 247, 246);
-  text-align: center;
-}
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-h1 {
-  color: rgb(12, 12, 12);
-  text-align: center;
-}
+  body {
+    background-color: #f9f7f6;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #0c0c0c;
+  }
 
-p {
-  font-family: helvetica, sans-serif;
-  font-size: 20px;
-}
+  /* Tarjeta contenedora central */
+  .menu-card {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+  }
 
-/* Contenedor para alinear los botones verticalmente */
-.act-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  margin: 15px 0;
-}
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
 
-/* Estilo para los botones */
-.act-link {
-  display: inline-block;
-  border: 2px solid rgb(12, 12, 12);
-  padding: 12px 28px;
-  font-family: helvetica, sans-serif;
-  font-weight: bold;
-  font-size: 18px;
-  color: rgb(12, 12, 12);
-  text-decoration: none;
-  letter-spacing: 2px;
-  transition: all 0.2s ease;
-}
-
-/* Efecto al pasar el cursor sobre los botones */
-.act-link:hover {
-  background-color: rgb(12, 12, 12);
-  color: rgb(249, 247, 246);
-}
-</style>
-</head>
-<body>
-
-<h1> MENU LOFTY Studio™</h1>
-<p>LOFTY Archive</p>
-
-<div class="act-container">
-  <a href="A2/act1.html" class="act-link">ACT 1</a>
-  <a href="A3/GG.html" class="act-link">GOLDEN GLOBE</a>
-  <a href="Arte en CANVAS/PATO.html" class="act-link">Arte en cavas</a>
-</div>
-
-</body>
-</html>
+  .subtitle {
+    font-size: 13px;
+    font-weight: 400;
+    color: #777777;
+    letter-spacing:
