@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lofty DVD™</title>
+
+    <style>
+        body {
+            text-align: center;
+            background-color: #eeeeee;
+        }
+
+        h1 {
+            font-family: Arial;
+            color: #222;
+        }
+
+        canvas {
+            border: 3px solid black;
+            border-radius: 25px;
+            background-color: white;
+            box-shadow: 0 5px 15px gray;
+        }
+    </style>
+
+    <script>
+        var x = Math.random() * 650;
+        var y = Math.random() * 450;
+
+        var dx = 2;
+        var dy = 2;
+
+        var imagen = new Image();
+        imagen.src = "descarga__1_-removebg-preview.png";
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            var canvas = document.getElementById("micanvas");
+            var context = canvas.getContext("2d");
+
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            context.shadowColor = "gray";
+            context.shadowBlur = 10;
+
+            context.drawImage(imagen, x, y, 150, 150);
+
+            context.shadowBlur = 0;
+
+            if (x + 150 >= canvas.width || x <= 0) {
+                dx = -dx;
+            }
+
+            if (y + 150 >= canvas.height || y <= 0) {
+                dy = -dy;
+            }
+
+            x += dx;
+            y += dy;
+        }
+
+        animate();
+    </script>
+</head>
+
+<body>
+
+    <h1>Lofty DVD</h1>
+
+    <canvas id="micanvas" width="800" height="600"></canvas>
+
+</body>
+</html> 
