@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pato Pixel Art</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: white;
+            overflow: hidden;
+        }
+
+        /* PATO */
+        #pato {
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            display: grid;
+
+            grid-template-columns: repeat(7, 25px);
+            grid-template-rows: repeat(7, 25px);
+        }
+
+        /* CUADROS */
+        .cuadro {
+            width: 25px;
+            height: 25px;
+        }
+
+        /* COLORES */
+        .amarillo {
+            background: #FFD900;
+        }
+
+        .naranja {
+            background: #FF9D00;
+        }
+
+        .negro {
+            background: #000000;
+        }
+
+        .vacio {
+            background: transparent;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- PATO HECHO ÚNICAMENTE CON CUADROS -->
+
+    <div id="pato">
+
+        <!-- FILA 1 -->
+        <div class="vacio"></div>
+        <div class="vacio"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="vacio"></div>
+        <div class="vacio"></div>
+
+        <!-- FILA 2 -->
+        <div class="vacio"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="negro"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="vacio"></div>
+
+        <!-- FILA 3 -->
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="naranja"></div>
+
+        <!-- FILA 4 -->
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="vacio"></div>
+
+        <!-- FILA 5 -->
+        <div class="vacio"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="vacio"></div>
+
+        <!-- FILA 6 -->
+        <div class="vacio"></div>
+        <div class="vacio"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="amarillo"></div>
+        <div class="vacio"></div>
+        <div class="vacio"></div>
+
+        <!-- FILA 7 -->
+        <div class="naranja"></div>
+        <div class="naranja"></div>
+        <div class="vacio"></div>
+        <div class="vacio"></div>
+        <div class="vacio"></div>
+        <div class="naranja"></div>
+        <div class="naranja"></div>
+
+    </div>
+
+
+    <!-- ANIMACIÓN -->
+
+    <script>
+
+        let pato = document.getElementById("pato");
+
+        // Posición inicial
+        let x = 100;
+        let y = 100;
+
+        // Velocidad constante
+        let velocidadX = 3;
+        let velocidadY = 3;
+
+
+        function animate() {
+
+            // Mover el pato
+            x += velocidadX;
+            y += velocidadY;
+
+            // Aplicar posición
+            pato.style.transform = `translate(${x}px, ${y}px)`;
+
+
+            // Rebote contra izquierda y derecha
+            if (x <= 0 || x + pato.offsetWidth >= window.innerWidth) {
+                velocidadX *= -1;
+            }
+
+
+            // Rebote contra arriba y abajo
+            if (y <= 0 || y + pato.offsetHeight >= window.innerHeight) {
+                velocidadY *= -1;
+            }
+
+
+            // Continuar animación
+            requestAnimationFrame(animate);
+        }
+
+
+        // Iniciar animación
+        animate();
+
+    </script>
+
+</body>
+</html>
