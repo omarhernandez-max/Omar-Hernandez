@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Emociones</title>
+
+    <style>
+        body {
+            background: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 40px;
+            transition: 0.4s;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        #mensaje {
+            font-size: 18px;
+            color: #aaa;
+        }
+
+        #imagen {
+            width: 450px;
+            height: 320px;
+            object-fit: contain;
+            margin: 30px auto 10px;
+            display: none;
+        }
+
+        #emocion {
+            font-size: 55px;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        #teclas {
+            margin-top: 30px;
+            font-size: 18px;
+            color: #aaa;
+        }
+
+        .tecla {
+            display: inline-block;
+            background: #222;
+            border: 2px solid white;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        .entrar {
+            animation: girar 0.8s ease;
+        }
+
+        @keyframes girar {
+            0% {
+                transform: rotate(-360deg) scale(0);
+                opacity: 0;
+            }
+
+            60% {
+                transform: rotate(20deg) scale(1.15);
+                opacity: 1;
+            }
+
+            80% {
+                transform: rotate(-10deg) scale(0.95);
+            }
+
+            100% {
+                transform: rotate(0deg) scale(1);
+            }
+        }
+
+        .textoAnimado {
+            animation: texto 0.5s ease;
+        }
+
+        @keyframes texto {
+            0% {
+                transform: scale(0);
+            }
+
+            70% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        #intro {
+            width: 500px;
+            max-width: 80%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>EMOCIONES</h1>
+
+    <img id="intro" src="intro.jpg" alt="Intro">
+
+    <p id="mensaje">
+        Presiona una tecla para comenzar
+    </p>
+
+    <img id="imagen" src="" alt="Emoción">
+
+    <div id="emocion"></div>
+
+    <div id="teclas">
+        <span class="tecla">A</span> Felicidad
+        <span class="tecla">S</span> Tristeza
+        <span class="tecla">D</span> Enojo
+        <span class="tecla">F</span> Miedo
+        <span class="tecla">G</span> Sorpresa
+    </div>
+
+    <script>
+        let introActiva = true;
+
+        document.addEventListener("keydown", function(event) {
+
+            const imagen = document.getElementById("imagen");
+            const emocion = document.getElementById("emocion");
+            const intro = document.getElementById("intro");
+            const mensaje = document.getElementById("mensaje");
+
+            let tecla = event.key.toLowerCase();
+
+            if (introActiva) {
+                introActiva = false;
+
+                intro.style.display = "none";
+                mensaje.style.display = "none";
+
+                return;
+            }
+
+            if (tecla === "a") {
+                imagen.src = "felicidad.jpg";
+                emocion.textContent = "FELICIDAD";
+                document.body.style.background = "#263d26";
+            }
+
+            if (tecla === "s") {
+                imagen.src = "tristeza.jpg";
+                emocion.textContent = "TRISTEZA";
+                document.body.style.background = "#20283d";
+            }
+
+            if (tecla === "d") {
+                imagen.src = "enojo.jpg";
+                emocion.textContent = "ENOJO";
+                document.body.style.background = "#3d2020";
+            }
+
+            if (tecla === "f") {
+                imagen.src = "miedo.jpg";
+                emocion.textContent = "MIEDO";
+                document.body.style.background = "#241f30";
+            }
+
+            if (tecla === "g") {
+                imagen.src = "sorpresa.jpg";
+                emocion.textContent = "SORPRESA";
+                document.body.style.background = "#3d3820";
+            }
+
+            if (["a", "s", "d", "f", "g"].includes(tecla)) {
+
+                imagen.style.display = "block";
+
+                imagen.classList.remove("entrar");
+                void imagen.offsetWidth;
+                imagen.classList.add("entrar");
+
+                emocion.classList.remove("textoAnimado");
+                void emocion.offsetWidth;
+                emocion.classList.add("textoAnimado");
+            }
+        });
+    </script>
+
+</body>
+</html>
