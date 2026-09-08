@@ -10,87 +10,92 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  body {
-    background-color: #f9f7f6;
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    color: #0c0c0c;
-  }
+body {
+  background-color: #f9f7f6;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #0c0c0c;
+}
 
-  /* Tarjeta contenedora central */
-  .menu-card {
-    background: #ffffff;
-    padding: 40px 30px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    width: 100%;
-    max-width: 420px;
-    text-align: center;
-  }
+.menu-card {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
 
-  h1 {
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
 
-  .subtitle {
-    font-size: 13px;
-    font-weight: 400;
-    color: #777777;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: 35px;
-  }
+.subtitle {
+  font-size: 13px;
+  color: #777777;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 35px;
+}
 
-  /* Contenedor de botones */
-  .act-container {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
+.act-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 
-  /* Botones estilo minimalista pro */
-  .act-link {
-    display: block;
-    width: 100%;
-    padding: 16px 20px;
-    border: 1.5px solid #0c0c0c;
-    border-radius: 8px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    color: #0c0c0c;
-    text-decoration: none;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+.act-link {
+  display: block;
+  width: 100%;
+  padding: 16px 20px;
+  border: 1.5px solid #0c0c0c;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #0c0c0c;
+  text-decoration: none;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  transition: 0.25s;
+}
 
-  /* Efecto Hover moderno */
-  .act-link:hover {
-    background-color: #0c0c0c;
-    color: #f9f7f6;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(12, 12, 12, 0.15);
-  }
+.act-link:hover {
+  background-color: #0c0c0c;
+  color: #f9f7f6;
+  transform: translateY(-2px);
+}
 
-  .act-link:active {
-    transform: translateY(0);
+.proyecto {
+  background-color: #f5c400;
+  border-color: #f5c400;
+  animation: parpadeo 1s infinite;
+}
+
+@keyframes parpadeo {
+  0%, 100% {
+    opacity: 1;
   }
+  50% {
+    opacity: 0.35;
+  }
+}
 </style>
 </head>
+
 <body>
 
 <main class="menu-card">
@@ -98,9 +103,10 @@
   <p class="subtitle">LOFTY Archive</p>
 
   <nav class="act-container">
+    <a href="Proyecto/Proyecto.html" class="act-link proyecto">PROYECTO</a>
     <a href="A2/act1.html" class="act-link">ACT 1</a>
     <a href="A3/GG.html" class="act-link">GOLDEN GLOBE</a>
-    <a href="Arte en CANVAS/PATO.html" class="act-link">arte en CANVAS</a>
+    <a href="Arte en CANVAS/PATO.html" class="act-link">ARTE EN CANVAS</a>
     <a href="Participacion 2/reto-canvas.html" class="act-link">PARTICIPACIÓN 2</a>
   </nav>
 </main>
