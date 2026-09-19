@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Eyes Follow Mouse</title>
+
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: white;
+      }
+
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <canvas id="canvas" width="1000" height="700"></canvas>
+
+    <script>
+
+      var canvas = document.getElementById("canvas");
+      var context = canvas.getContext("2d");
+
+      var mouse = {
+        x: canvas.width / 2,
+        y: canvas.height / 2
+      };
+
+      canvas.addEventListener("mousemove", function(event) {
+        var rect = canvas.getBoundingClientRect();
+
+        mouse.x = event.clientX - rect.left;
+        mouse.y = event.clientY - rect.top;
+      });
+
+      function dibujarOjo(x, y) {
+
+        context.beginPath();
+        context.arc(x, y, 70, 0, Math.PI * 2);
+        context.fillStyle = "white";
+        context.fill();
+
+        context.strokeStyle = "black";
+        context.lineWidth = 3;
+        context.stroke();
+
+        var dx = mouse.x - x;
+        var dy = mouse.y - y;
+
+        var distancia = Math.sqrt(dx * dx + dy * dy);
+        var limite = 30;
+
+        if (distancia > limite) {
+          dx = dx / distancia * limite;
+          dy = dy / distancia * limite;
+        }
+
+        var gradient = context.createRadialGradient(
+          x + dx - 10,
+          y + dy - 10,
+          5,
+          x + dx,
+          y + dy,
+          35
+        );
+
+        gradient.addColorStop(0, "white");
+        gradient.addColorStop(0.3, "cyan");
+        gradient.addColorStop(0.6, "blue");
+        gradient.addColorStop(1, "purple");
+
+        context.beginPath();
+        context.arc(x + dx, y + dy, 30, 0, Math.PI * 2);
+        context.fillStyle = gradient;
+        context.fill();
+      }
+
+      function animar() {
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        dibujarOjo(400, 350);
+        dibujarOjo(600, 350);
+
+        requestAnimationFrame(animar);
+      }
+
+      animar();
+
+    </script>
+
+  </body>
+</html>
