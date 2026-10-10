@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reloj</title>
+
+    <style>
+        body {
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .reloj {
+            width: 300px;
+            height: 300px;
+            border: 4px solid black;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .numero {
+            position: absolute;
+            font-size: 22px;
+            transform: translate(-50%, -50%);
+        }
+
+        .manecilla {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 5px;
+        }
+
+        .horas {
+            width: 6px;
+            height: 70px;
+            background: black;
+        }
+
+        .minutos {
+            width: 4px;
+            height: 100px;
+            background: blue;
+        }
+
+        .segundos {
+            width: 2px;
+            height: 115px;
+            background: red;
+        }
+
+        .centro {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: black;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="reloj" id="reloj">
+        <div class="manecilla horas" id="horas"></div>
+        <div class="manecilla minutos" id="minutos"></div>
+        <div class="manecilla segundos" id="segundos"></div>
+        <div class="centro"></div>
+    </div>
+
+    <script>
+        const reloj = document.getElementById("reloj");
+
+        for (let i = 1; i <= 12; i++) {
+            const numero = document.createElement("div");
+            numero.className = "numero";
+            numero.textContent = i;
+
+            const angulo = (i * 30 - 90) * Math.PI / 180;
+
+            numero.style.left = 150 + 120 * Math.cos(angulo) + "px";
+            numero.style.top = 150 + 120 * Math.sin(angulo) + "px";
+
+            reloj.appendChild(numero);
+        }
+
+        const inicio = performance.now();
+
+        function animar(ahora) {
+            const segundos = (ahora - inicio) / 1000;
+
+            const anguloSegundos = segundos * 6;
+            const anguloMinutos = segundos * 0.1;
+            const anguloHoras = segundos / 120;
+
+            document.getElementById("segundos").style.transform =
+                `translateX(-50%) rotate(${anguloSegundos}deg)`;
+
+            document.getElementById("minutos").style.transform =
+                `translateX(-50%) rotate(${anguloMinutos}deg)`;
+
+            document.getElementById("horas").style.transform =
+                `translateX(-50%) rotate(${anguloHoras}deg)`;
+
+            requestAnimationFrame(animar);
+        }
+
+        requestAnimationFrame(animar);
+    </script>
+
+</body>
+</html>

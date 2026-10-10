@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LOFTY Paint</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background:#111318;
+    font-family:Arial,Helvetica,sans-serif;
+    color:white;
+}
+
+header{
+    height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 35px;
+    background:#181a20;
+    border-bottom:1px solid #292c34;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.logo span{
+    color:#4f8cff;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:13px;
+    color:#9297a3;
+}
+
+.status{
+    width:9px;
+    height:9px;
+    background:#39d98a;
+    border-radius:50%;
+}
+
+.app{
+    width:100%;
+    display:flex;
+    min-height:calc(100vh - 75px);
+}
+
+.sidebar{
+    width:250px;
+    background:#181a20;
+    border-right:1px solid #292c34;
+    padding:22px 18px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.section{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.section-title{
+    font-size:11px;
+    color:#777d8a;
+    font-weight:bold;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.tools{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.tool{
+    height:45px;
+    background:#22252d;
+    border:1px solid #30343d;
+    border-radius:8px;
+    color:#dce0e8;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.tool:hover{
+    background:#2b2f39;
+    border-color:#4f8cff;
+}
+
+.tool.active{
+    background:#4f8cff;
+    border-color:#4f8cff;
+    color:white;
+}
+
+.color-grid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:7px;
+}
+
+.color{
+    width:29px;
+    height:29px;
+    border-radius:7px;
+    border:2px solid #343740;
+    cursor:pointer;
+    transition:.15s;
+}
+
+.color:hover{
+    transform:scale(1.12);
+    border-color:white;
+}
+
+.color.active{
+    border:3px solid white;
+    box-shadow:0 0 0 2px #4f8cff;
+}
+
+.custom-color{
+    width:100%;
+    height:40px;
+    border:1px solid #30343d;
+    border-radius:8px;
+    background:#22252d;
+    padding:4px;
+    cursor:pointer;
+}
+
+.sizes{
+    display:flex;
+    gap:8px;
+}
+
+.size{
+    flex:1;
+    height:40px;
+    background:#22252d;
+    border:1px solid #30343d;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.size:hover{
+    border-color:#4f8cff;
+}
+
+.size.active{
+    background:#4f8cff;
+    border-color:#4f8cff;
+}
+
+.size-dot{
+    background:white;
+    border-radius:50%;
+}
+
+.actions{
+    margin-top:auto;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.action{
+    width:100%;
+    height:43px;
+    border:0;
+    border-radius:8px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.undo{
+    background:#292d36;
+}
+
+.undo:hover{
+    background:#353a45;
+}
+
+.clear{
+    background:#d93636;
+}
+
+.clear:hover{
+    background:#ed4545;
+}
+
+.download{
+    background:#39a96b;
+}
+
+.download:hover{
+    background:#48bf7d;
+}
+
+.workspace{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:25px;
+    overflow:auto;
+}
+
+.topbar{
+    width:min(1100px,100%);
+    height:55px;
+    background:#181a20;
+    border:1px solid #292c34;
+    border-radius:10px 10px 0 0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
+}
+
+.document{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:13px;
+    color:#aeb3be;
+}
+
+.color-preview{
+    width:22px;
+    height:22px;
+    border-radius:5px;
+    border:2px solid white;
+}
+
+.canvas-area{
+    width:min(1100px,100%);
+    background:#252831;
+    padding:25px;
+    border-radius:0 0 10px 10px;
+    border:1px solid #292c34;
+    border-top:0;
+}
+
+.canvas-wrapper{
+    width:100%;
+    background:white;
+    box-shadow:0 10px 35px rgba(0,0,0,.35);
+    overflow:hidden;
+}
+
+canvas{
+    display:block;
+    width:100%;
+    height:auto;
+    background:white;
+    cursor:crosshair;
+}
+
+.info{
+    margin-top:15px;
+    color:#777d8a;
+    font-size:12px;
+    text-align:center;
+}
+
+@media(max-width:850px){
+
+    .sidebar{
+        width:210px;
+    }
+
+    .color-grid{
+        grid-template-columns:repeat(5,1fr);
+    }
+
+}
+
+@media(max-width:650px){
+
+    .app{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+        border-right:0;
+        border-bottom:1px solid #292c34;
+    }
+
+    .actions{
+        margin-top:0;
+    }
+
+    header{
+        padding:0 15px;
+    }
+
+    .workspace{
+        padding:12px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        LOFTY <span>PAINT</span>
+    </div>
+
+    <div class="header-right">
+        <div class="status"></div>
+        Canvas listo
+    </div>
+
+</header>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="section">
+
+            <div class="section-title">
+                Herramientas
+            </div>
+
+            <div class="tools">
+
+                <button class="tool active" id="brush">
+                    ✎ Pluma
+                </button>
+
+                <button class="tool" id="eraser">
+                    ◇ Borrador
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Colores
+            </div>
+
+            <div class="color-grid">
+
+                <button class="color active" style="background:#000000" data-color="#000000"></button>
+                <button class="color" style="background:#ffffff" data-color="#ffffff"></button>
+                <button class="color" style="background:#ff3b30" data-color="#ff3b30"></button>
+                <button class="color" style="background:#ff9500" data-color="#ff9500"></button>
+                <button class="color" style="background:#ffcc00" data-color="#ffcc00"></button>
+                <button class="color" style="background:#34c759" data-color="#34c759"></button>
+
+                <button class="color" style="background:#00c7be" data-color="#00c7be"></button>
+                <button class="color" style="background:#30b0c7" data-color="#30b0c7"></button>
+                <button class="color" style="background:#007aff" data-color="#007aff"></button>
+                <button class="color" style="background:#5856d6" data-color="#5856d6"></button>
+                <button class="color" style="background:#af52de" data-color="#af52de"></button>
+                <button class="color" style="background:#ff2d55" data-color="#ff2d55"></button>
+
+                <button class="color" style="background:#8e8e93" data-color="#8e8e93"></button>
+                <button class="color" style="background:#636366" data-color="#636366"></button>
+                <button class="color" style="background:#8b4513" data-color="#8b4513"></button>
+                <button class="color" style="background:#4cd964" data-color="#4cd964"></button>
+
+            </div>
+
+            <input
+                type="color"
+                class="custom-color"
+                id="customColor"
+                value="#000000"
+            >
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Grosor
+            </div>
+
+            <div class="sizes">
+
+                <button class="size active" data-size="3">
+                    <span class="size-dot" style="width:5px;height:5px"></span>
+                </button>
+
+                <button class="size" data-size="7">
+                    <span class="size-dot" style="width:9px;height:9px"></span>
+                </button>
+
+                <button class="size" data-size="15">
+                    <span class="size-dot" style="width:15px;height:15px"></span>
+                </button>
+
+                <button class="size" data-size="30">
+                    <span class="size-dot" style="width:23px;height:23px"></span>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button class="action undo" id="undo">
+                ↶ Deshacer
+            </button>
+
+            <button class="action undo" id="redo">
+                ↷ Rehacer
+            </button>
+
+            <button class="action clear" id="clear">
+                ✕ Borrar todo
+            </button>
+
+            <button class="action download" id="download">
+                ↓ Descargar JPG
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <main class="workspace">
+
+        <div class="topbar">
+
+            <div class="document">
+                <div class="color-preview" id="preview"></div>
+                <span id="toolName">Pluma</span>
+            </div>
+
+            <div class="document">
+                1000 × 600 px
+            </div>
+
+        </div>
+
+
+        <div class="canvas-area">
+
+            <div class="canvas-wrapper">
+
+                <canvas
+                    id="canvas"
+                    width="1000"
+                    height="600">
+                </canvas>
+
+            </div>
+
+            <div class="info">
+                Usa el mouse para dibujar · Selecciona Borrador para eliminar partes
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let drawing = false;
+let color = "#000000";
+let size = 3;
+let erasing = false;
+
+let history = [];
+let historyIndex = -1;
+
+ctx.lineCap = "round";
+ctx.lineJoin = "round";
+
+
+function saveState(){
+
+    if(historyIndex < history.length - 1){
+        history = history.slice(0, historyIndex + 1);
+    }
+
+    history.push(canvas.toDataURL());
+
+    historyIndex++;
+
+}
+
+
+function restoreState(index){
+
+    if(index < 0 || index >= history.length){
+        return;
+    }
+
+    const img = new Image();
+
+    img.onload = function(){
+
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+
+        ctx.drawImage(img,0,0);
+
+    };
+
+    img.src = history[index];
+
+}
+
+
+function getPosition(e){
+
+    const rect = canvas.getBoundingClientRect();
+
+    return {
+
+        x:(e.clientX - rect.left) *
+        (canvas.width / rect.width),
+
+        y:(e.clientY - rect.top) *
+        (canvas.height / rect.height)
+
+    };
+
+}
+
+
+function startDrawing(e){
+
+    drawing = true;
+
+    const pos = getPosition(e);
+
+    ctx.beginPath();
+
+    ctx.moveTo(pos.x,pos.y);
+
+}
+
+
+function draw(e){
+
+    if(!drawing){
+        return;
+    }
+
+    const pos = getPosition(e);
+
+    ctx.lineWidth = size;
+
+    if(erasing){
+
+        ctx.globalCompositeOperation = "destination-out";
+
+    }else{
+
+        ctx.globalCompositeOperation = "source-over";
+        ctx.strokeStyle = color;
+
+    }
+
+    ctx.lineTo(pos.x,pos.y);
+    ctx.stroke();
+
+}
+
+
+function stopDrawing(){
+
+    if(!drawing){
+        return;
+    }
+
+    drawing = false;
+
+    ctx.closePath();
+
+    ctx.globalCompositeOperation = "source-over";
+
+    saveState();
+
+}
+
+
+canvas.addEventListener("mousedown",startDrawing);
+canvas.addEventListener("mousemove",draw);
+canvas.addEventListener("mouseup",stopDrawing);
+canvas.addEventListener("mouseleave",stopDrawing);
+
+
+canvas.addEventListener("touchstart",function(e){
+
+    e.preventDefault();
+
+    const touch = e.touches[0];
+
+    startDrawing({
+        clientX:touch.clientX,
+        clientY:touch.clientY
+    });
+
+});
+
+
+canvas.addEventListener("touchmove",function(e){
+
+    e.preventDefault();
+
+    const touch = e.touches[0];
+
+    draw({
+        clientX:touch.clientX,
+        clientY:touch.clientY
+    });
+
+});
+
+
+canvas.addEventListener("touchend",function(){
+
+    stopDrawing();
+
+});
+
+
+function updatePreview(){
+
+    document.getElementById("preview").style.background = color;
+
+}
+
+
+function activateBrush(){
+
+    erasing = false;
+
+    document.getElementById("brush").classList.add("active");
+    document.getElementById("eraser").classList.remove("active");
+
+    document.getElementById("toolName").textContent = "Pluma";
+
+    updatePreview();
+
+}
+
+
+function activateEraser(){
+
+    erasing = true;
+
+    document.getElementById("eraser").classList.add("active");
+    document.getElementById("brush").classList.remove("active");
+
+    document.getElementById("toolName").textContent = "Borrador";
+
+}
+
+
+document.getElementById("brush").onclick = activateBrush;
+
+document.getElementById("eraser").onclick = activateEraser;
+
+
+document.querySelectorAll(".color").forEach(function(button){
+
+    button.addEventListener("click",function(){
+
+        color = this.dataset.color;
+
+        document.querySelectorAll(".color").forEach(function(b){
+            b.classList.remove("active");
+        });
+
+        this.classList.add("active");
+
+        activateBrush();
+
+        updatePreview();
+
+    });
+
+});
+
+
+document.getElementById("customColor").addEventListener("input",function(){
+
+    color = this.value;
+
+    document.querySelectorAll(".color").forEach(function(b){
+        b.classList.remove("active");
+    });
+
+    activateBrush();
+
+    updatePreview();
+
+});
+
+
+document.querySelectorAll(".size").forEach(function(button){
+
+    button.addEventListener("click",function(){
+
+        size = Number(this.dataset.size);
+
+        document.querySelectorAll(".size").forEach(function(b){
+            b.classList.remove("active");
+        });
+
+        this.classList.add("active");
+
+    });
+
+});
+
+
+document.getElementById("undo").addEventListener("click",function(){
+
+    if(historyIndex > 0){
+
+        historyIndex--;
+
+        restoreState(historyIndex);
+
+    }
+
+});
+
+
+document.getElementById("redo").addEventListener("click",function(){
+
+    if(historyIndex < history.length - 1){
+
+        historyIndex++;
+
+        restoreState(historyIndex);
+
+    }
+
+});
+
+
+document.getElementById("clear").addEventListener("click",function(){
+
+    const confirmar = confirm("¿Quieres borrar todo el dibujo?");
+
+    if(confirmar){
+
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+
+        ctx.fillStyle = "white";
+
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        saveState();
+
+    }
+
+});
+
+
+document.getElementById("download").addEventListener("click",function(){
+
+    const jpg = document.createElement("canvas");
+
+    const jpgCtx = jpg.getContext("2d");
+
+    jpg.width = canvas.width;
+    jpg.height = canvas.height;
+
+    jpgCtx.fillStyle = "white";
+
+    jpgCtx.fillRect(
+        0,
+        0,
+        jpg.width,
+        jpg.height
+    );
+
+    jpgCtx.drawImage(
+        canvas,
+        0,
+        0
+    );
+
+    const link = document.createElement("a");
+
+    link.download = "LOFTY-PAINT.jpg";
+
+    link.href = jpg.toDataURL(
+        "image/jpeg",
+        0.95
+    );
+
+    link.click();
+
+});
+
+
+ctx.fillStyle = "white";
+
+ctx.fillRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+);
+
+saveState();
+
+updatePreview();
+
+</script>
+
+</body>
+</html>
