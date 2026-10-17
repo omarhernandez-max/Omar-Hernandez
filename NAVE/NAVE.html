@@ -1,0 +1,243 @@
+```html
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>lofty space</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #0b0e14;
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    h1 {
+      margin-bottom: 12px;
+      font-size: 32px;
+      letter-spacing: 2px;
+      color: #00d2ff;
+      text-transform: lowercase;
+      text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+    }
+    #canvas-container {
+      position: relative;
+      border: 3px solid #00d2ff;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(0, 210, 255, 0.3);
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+      background-color: #020208;
+    }
+    aside {
+      margin-top: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #a0aab8;
+    }
+    kbd {
+      background: #222c3a;
+      border: 1px solid #44546a;
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>lofty space</h1>
+  
+  <div id="canvas-container">
+    <canvas id="canvas" width="800" height="600"></canvas>
+  </div>
+
+  <aside>
+    Controles: Usas <kbd>←</kbd> <kbd>→</kbd> para rotar | <kbd>↑</kbd> para propulsión | <kbd>↓</kbd> freno retro/reversa
+  </aside>
+
+  <script>
+  window.onload = function () {
+    var canvas = document.getElementById('canvas'),
+        context = canvas.getContext('2d'),
+        vx = 0,
+        vy = 0,
+        vr = 0,
+        thrust = 0,
+        friction = 0.985,
+        bounce = -0.7;
+
+    var ship = {
+      x: canvas.width / 2,
+      y: canvas.height / 2,
+      width: 40,
+      height: 40,
+      rotation: 0,
+      showFlame: false
+    };
+
+    var shipImg = new Image();
+    var imgLoaded = false;
+    shipImg.src = 'NAVE.png';
+    shipImg.onload = function () {
+      imgLoaded = true;
+    };
+
+    var stars = [];
+    for (var i = 0; i < 150; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        alpha: Math.random()
+      });
+    }
+
+    function drawBackground() {
+      context.fillStyle = '#020208';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+        context.fillStyle = 'rgba(255, 255, 255, ' + s.alpha + ')';
+        context.beginPath();
+        context.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        context.fill();
+      }
+    }
+
+    function drawShip() {
+      context.save();
+      context.translate(ship.x, ship.y);
+      context.rotate(ship.rotation);
+
+      if (imgLoaded) {
+        context.drawImage(
+          shipImg, 
+          -ship.width / 2, 
+          -ship.height / 2, 
+          ship.width, 
+          ship.height
+        );
+        
+        if (ship.showFlame) {
+          context.beginPath();
+          context.moveTo(-ship.width / 2, -5);
+          context.lineTo(-ship.width / 2 - 15, 0);
+          context.lineTo(-ship.width / 2, 5);
+          context.fillStyle = '#ff5500';
+          context.fill();
+        }
+      } else {
+        context.strokeStyle = '#00d2ff';
+        context.fillStyle = '#0088cc';
+        context.lineWidth = 2;
+        context.beginPath();
+        context.moveTo(20, 0);
+        context.lineTo(-15, 12);
+        context.lineTo(-10, 0);
+        context.lineTo(-15, -12);
+        context.closePath();
+        context.fill();
+        context.stroke();
+
+        if (ship.showFlame) {
+          context.beginPath();
+          context.moveTo(-10, 0);
+          context.lineTo(-22, 0);
+          context.strokeStyle = '#ffaa00';
+          context.stroke();
+        }
+      }
+
+      context.restore();
+    }
+
+    window.addEventListener('keydown', function (event) {
+      switch (event.keyCode) {
+      case 37:
+        vr = -4;
+        break;
+      case 39:
+        vr = 4;
+        break;
+      case 38:
+        thrust = 0.12;
+        ship.showFlame = true;
+        break;
+      case 40:
+        thrust = -0.05;
+        break;
+      }
+    }, false);
+
+    window.addEventListener('keyup', function (event) {
+      switch (event.keyCode) {
+      case 37:
+      case 39:
+        vr = 0;
+        break;
+      case 38:
+      case 40:
+        thrust = 0;
+        ship.showFlame = false;
+        break;
+      }
+    }, false);
+
+    (function drawFrame () {
+      window.requestAnimationFrame(drawFrame, canvas);
+      
+      drawBackground();
+
+      ship.rotation += vr * Math.PI / 180;
+
+      var angle = ship.rotation,
+          ax = Math.cos(angle) * thrust,
+          ay = Math.sin(angle) * thrust;
+
+      vx += ax;
+      vy += ay;
+
+      vx *= friction;
+      vy *= friction;
+
+      ship.x += vx;
+      ship.y += vy;
+
+      var radius = ship.width / 2;
+
+      if (ship.x + radius > canvas.width) {
+        ship.x = canvas.width - radius;
+        vx *= bounce;
+      } else if (ship.x - radius < 0) {
+        ship.x = radius;
+        vx *= bounce;
+      }
+
+      if (ship.y + radius > canvas.height) {
+        ship.y = canvas.height - radius;
+        vy *= bounce;
+      } else if (ship.y - radius < 0) {
+        ship.y = radius;
+        vy *= bounce;
+      }
+
+      drawShip();
+    }());
+  };
+  </script>
+</body>
+</html>
